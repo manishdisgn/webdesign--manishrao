@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text user</title>
+</head>
+<style>
+   h1{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   }
+   textarea{
+       margin-left: 60px;
+       padding-left: 10px;
+       padding-top: 30px;
+   }
+   .main{
+    display: flex;
+   }
+   .main2{
+    width: 50%;
+   }
+   .change1, .change2, .change3, .change4{
+    margin-left: 30%;
+   }
+   .btn1, .btn2, .btn3, .btn4, .btn5, .btn6{
+          font-size: 30px;
+          margin-bottom: 30px;
+          cursor: pointer;
+   }
+   .btn2, .btn4, .btn6{
+    margin-left: 90px;
+   }
+   .btn2{
+    width: 34%;
+   }
+   .btn4{
+    margin-left: 20%;
+   }
+   .btn5{
+    width: 33%;
+   }
+   .btn3{
+    width: 33%;
+   }
+   .btn6{
+    margin-left: 20%;
+    width: 34%;
+   }
+   .btn7{
+    width: 34%;
+    height: 45px;
+   }
+   .btn9{
+    margin-left: 50%;
+    margin-top: 8%;
+    font-size: 20px;
+    border-radius: 5px;
+    height: 50px;
+   }
+   .btn8{
+    margin-left: 20%;
+    height: 45px;
+   }
+   .btn1 :hover{
+    background-color: aqua;
+   }
+   
+
+   
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+</style>
+</style>
+<body>
+    <div class="container">
+    <div class="box">
+    <div ><h1 >Text Changer</h1></div>
+    <div class="main">
+        <div>
+        <textarea name="" id="manish" cols="60" rows="25" placeholder="Make Yous Text Some More Creative..."></textarea>
+        </div>
+        <div class="main2">
+           <div class="change1">
+            <button class="btn1"
+            type="button"
+            onclick="underline()"
+            >Underline</button>
+            <button class="btn2"
+            type="button"
+            title="boldtext "
+			onclick="bold()">
+               Bold
+            </button>
+           </div> 
+           <div class="change2">
+            <button class="btn3"
+            type="button"
+            onclick="italic()"
+            >Italic</button>
+            <button class="btn4"
+            type="button"
+            onclick="Capital()">
+                Capitalize</button>
+           </div> 
+           <div class="change3">
+            <button class="btn5"
+            type="button"
+            onclick="zoomIn()">
+                zoom in</button>
+            <button class="btn6"
+             onclick="zoomOut()"
+            >zoom out</button>
+           </div> 
+           <div class="change4">
+            <button type="button"
+            class="btn7"
+			 oninput="color()">	
+			<input type="color" id="color">  
+
+            <button id="convertBtn" class="btn8">Play Converted Sound</button>
+            <p class="error-para"></p>
+           </div>
+           <div>
+            <button type="button"
+            class="btn9"
+            onclick="clearaway()"> 
+           Clear away</button>
+           </div>
+           <div class="upgraid">
+            
+           </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+
+
+
+
+
+
+
+
+<script>
+    const textStyle = document.getElementById('manish').style;
+        textStyle.textAlign="left";
+        function underline(){
+			textStyle.textDecoration=textStyle.textDecoration === 'underline' ? 'none':'underline';
+		}
+        function bold(){
+			textStyle.fontWeight = textStyle.fontWeight === 'bold' ? 'normal':'bold';
+        }
+        function italic(){
+            textStyle.fontStyle=textStyle.fontStyle === 'italic' ? 'normal':'italic';
+        }
+        function Capital(){
+            textStyle.textTransform=textStyle.textTransform === 'capitalize' ? 'none':'capitalize';
+        }
+        function zoomIn() {
+        var currentSize = parseInt(window.getComputedStyle(document.getElementById('manish')).fontSize);
+        document.getElementById('manish').style.fontSize = (currentSize * 1.2) + 'px';
+    }
+    
+    function zoomOut() {
+        var currentSize = parseInt(window.getComputedStyle(document.getElementById('manish')).fontSize);
+        document.getElementById('manish').style.fontSize = (currentSize / 1.2) + 'px';
+    }
+        function color(){
+		let textColor=document.getElementById('color').value;
+		textStyle.color=textColor;
+		}
+        function clearaway(){  
+            textStyle.fontWeight = "normal";
+			textStyle.textDecoration ="none";
+            textStyle.textAlign = "left"; 
+            textStyle.fontStyle = "normal"; 
+            textStyle.textTransform = "none"; 
+			textStyle.color = "";
+            document.getElementById('manish').value =""; 
+        } 
+
+        const text = document.getElementById("manish");
+        const convertBtn = document.getElementById("convertBtn");
+
+        convertBtn.addEventListener("click", function () {
+            const speechSynth = window.speechSynthesis;
+            const enteredText = text.value;
+            const error = document.querySelector(".error-para");
+
+            if (!speechSynth.speaking && !enteredText.trim().length) {
+                error.textContent = "Nothing to Convert! Enter text in the text area.";
+            }
+
+            if (!speechSynth.speaking && enteredText.trim().length) {
+                error.textContent = "";
+                const newUtter = new SpeechSynthesisUtterance(enteredText);
+                speechSynth.speak(newUtter);
+                convertBtn.textContent = "Sound is Playing...";
+            }
+
+            setTimeout(() => {
+                convertBtn.textContent = "Play Converted Sound";
+            }, 5000);
+        });
+
+</script>
+</html>
